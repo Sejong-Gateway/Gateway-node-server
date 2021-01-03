@@ -21,7 +21,7 @@ export interface UserModel extends mongoose.Document {
     opic: number;
     toeicSpeaking: number;
 }
-const UserSchema: Schema<UserModel> = new Schema({
+const UserSchema: Schema<UserModel> = new (Schema as any)({
     studentId: {type : String},
     user_pw : {type : String},
     admin : {type : Boolean, default : false},

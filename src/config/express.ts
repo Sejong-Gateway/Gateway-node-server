@@ -9,8 +9,7 @@ import * as error from "./error";
 import passport from 'passport';
 import session from 'express-session';
 import cors from 'cors';
-import '../passport/local-signin';
-import '../passport/local-signup';
+import router from "../api/routes";
 
 var flash = require('connect-flash');
 
@@ -76,3 +75,4 @@ app.use(error.notFound);
 app.use(error.handler);
 
 export default app;
+

@@ -91,3 +91,5 @@ router.get('/check', async(req : any, res, next) => {
         next(error);
     }
 });
+
+export default router;

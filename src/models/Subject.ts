@@ -9,7 +9,7 @@ export interface SubjectModel extends mongoose.Document {
     credit: number;
     enteranceYear: string;
 }
-const SubjectSchema: Schema<SubjectModel> = new Schema({
+const SubjectSchema: Schema<SubjectModel> = new (Schema as any)({
     name: {type: String},
     major: {type: String},
     type: {type: String},
