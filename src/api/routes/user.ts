@@ -9,11 +9,12 @@ router.post('/register', async(req, res) => {
         studentId, user_pw, semester, major, abeek, westernBook, easternBook,
         literatureBook, scienceBook, volunteerTime, toeic, ibt, teps, opic,
         toeicSpeaking, currentSubjects, completeSubjects, uncompletedSubjects,
+        admin,
     } = req.body;
     const newUser = await User.findOne({studentId : studentId});
     if ( !newUser ){ // 신규 유저라면 
         await new User({studentId, user_pw, semester, major, abeek, westernBook, easternBook,
-            literatureBook, scienceBook, volunteerTime, toeic, ibt, teps, opic,
+            literatureBook, scienceBook, volunteerTime, toeic, ibt, teps, opic, admin,
             toeicSpeaking, currentSubjects, completeSubjects, uncompletedSubjects}).save();
         res.send({
             status : 200,
@@ -72,6 +73,18 @@ router.post('/login', async(req, res, next) =>{
         }
     }
 });
+
+router.get('/', async(req,res, next) =>{
+    try{ 
+      const users = await User.find({});
+      res.send({status:200, data:users})
+    }
+    catch(error){
+        next(error);
+    }
+});
+
+
 
 router.get('/check', async(req : any, res, next) => {
     const token = req.headers['x-access-token'] || req.query.token;
