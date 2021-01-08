@@ -13,13 +13,27 @@ router.post('/', async(req : any, res, next)=>{
 });
 
 router.get('/', async(req,res, next) =>{
-    try{ 
-      const sujects = await Subject.find({});
-      res.send({status:200, data:sujects})
+    if ( req.query.major ){
+        console.log(req.query.major);
+
+        try{
+            const sujects = await Subject.find({major : req.query.major});
+            res.send({status:200, data:sujects})
+          }
+          catch(error){
+              next(error);
+          }
     }
-    catch(error){
-        next(error);
+    else{
+        try{ 
+            const sujects = await Subject.find({});
+            res.send({status:200, data:sujects})
+        }
+        catch(error){
+            next(error);
+        }
     }
+
 });
 
 router.get('/:id', async(req,res, next) =>{
@@ -29,7 +43,7 @@ router.get('/:id', async(req,res, next) =>{
                 return res.status(500).json({error: err});
             }
             if ( !subject ) {
-                return res.status(404).json({error: 'book not found!'});
+                return res.status(404).json({error: 'subject not found!'});
             }
             res.send({success : true, data : subject});
         });

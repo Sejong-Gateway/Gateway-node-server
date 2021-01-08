@@ -18,7 +18,7 @@ router.post('/register', async(req, res) => {
             toeicSpeaking, currentSubjects, completeSubjects, uncompletedSubjects}).save();
         res.send({
             status : 200,
-            message : "success!"
+            message : "success!",
         })
     }
     else{
@@ -76,14 +76,13 @@ router.post('/login', async(req, res, next) =>{
 
 router.get('/', async(req,res, next) =>{
     try{ 
-      const users = await User.find({});
+      const users = await User.find({})
       res.send({status:200, data:users})
     }
     catch(error){
         next(error);
     }
 });
-
 
 
 router.get('/check', async(req : any, res, next) => {
@@ -95,10 +94,11 @@ router.get('/check', async(req : any, res, next) => {
         })
     }
     try{
-        const data = await jwt.verify(token, req.app.get('jwt-secret'));
+        const data : any = await jwt.verify(token, req.app.get('jwt-secret'));
+        const user = await User.findById(data._id).populate("currentSubjects").populate("completeSubjects").populate("uncompletedSubjects");
         res.send({
             status : 200,
-            data : data
+            data : user
         });
     }catch(error){
         next(error);

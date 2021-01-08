@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { SubjectModel } from "./Subject";
 
 export interface UserModel extends mongoose.Document {
   studentId: string;
@@ -6,9 +7,9 @@ export interface UserModel extends mongoose.Document {
     admin : boolean;
     semester : string; // 학기
     major: string; // 전공
-    currentSubjects : [];
-    completeSubjects: [];
-    uncompletedSubjects: [];
+    currentSubjects : [SubjectModel];
+    completeSubjects: [SubjectModel];
+    uncompletedSubjects: [SubjectModel];
     abeek : boolean;
     westernBook : number;
     easternBook: number;
