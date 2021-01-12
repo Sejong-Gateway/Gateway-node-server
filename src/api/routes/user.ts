@@ -85,6 +85,15 @@ router.get('/', async(req,res, next) =>{
 });
 
 
+router.delete('/:id', async(req, res, next) => {
+    try{
+        await User.findOneAndRemove({ _id: req.params.id });
+        res.send({ success: true, data: "okay" });
+    }catch(error){
+        next(error);
+    }
+});
+
 router.get('/check', async(req : any, res, next) => {
     const token = req.headers['x-access-token'] || req.query.token;
     if(!token) {
