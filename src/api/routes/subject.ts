@@ -15,7 +15,6 @@ router.post('/', async(req : any, res, next)=>{
 router.get('/', async(req,res, next) =>{
     if ( req.query.major ){
         console.log(req.query.major);
-
         try{
             const sujects = await Subject.find({major : req.query.major});
             res.send({status:200, data:sujects})
@@ -65,7 +64,7 @@ router.put('/:id', async(req, res, next) =>{
     try{
         const subejct = await Subject.findOneAndUpdate(
             { _id: req.params.id },
-            { $push : {codes : req.body}},
+            { set : req.body},
             { new : true}
         );
         res.send({ success: true, data: subejct });
