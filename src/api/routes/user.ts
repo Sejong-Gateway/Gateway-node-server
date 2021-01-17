@@ -124,7 +124,11 @@ router.put('/requirement', async(req: any, res, next) => {
     }
     try{
         const data : any = await jwt.verify(token, req.app.get('jwt-secret'));
-        const user = await User.findByIdAndUpdate(data._id)
+        const user = await User.findByIdAndUpdate(
+            { _id: data._id },
+            { $set: req.body},
+            {new: true}
+        );
         res.send({
             status : 200,
             data : user
