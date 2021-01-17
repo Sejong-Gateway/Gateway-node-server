@@ -114,4 +114,24 @@ router.get('/check', async(req : any, res, next) => {
     }
 });
 
+router.put('/requirement', async(req: any, res, next) => {
+    const token = req.headers['x-access-token'] || req.query.token;
+    if(!token) {
+        return res.status(403).json({
+            success: false,
+            message: 'not logged in'
+        })
+    }
+    try{
+        const data : any = await jwt.verify(token, req.app.get('jwt-secret'));
+        const user = await User.findByIdAndUpdate(data._id)
+        res.send({
+            status : 200,
+            data : user
+        });
+    }catch(error){
+        next(error);
+    }
+});
+
 export default router;
