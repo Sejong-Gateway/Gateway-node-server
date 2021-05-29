@@ -12,8 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "@types/morgan": "^1.7.37",
+    "@types/mysql": "^2.15.18",
     "axios": "^0.19.2",
     "bcrypt": "^3.0.8",
+    "class-validator": "^0.13.1",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^3.2.0",
     "cors": "^2.8.5",
@@ -27,13 +29,18 @@
     "iamport": "^0.3.4",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
     "moment": "^2.24.0",
-    "mongoose": "^5.10.1",
     "mongoose-session": "0.0.4",
     "morgan": "^1.9.1",
+    "mysql": "^2.18.1",
     "passport": "^0.4.1",
     "puppeteer": "^5.5.0",
-    "session-file-store": "^1.4.0"
+    "reflect-metadata": "^0.1.13",
+    "session-file-store": "^1.4.0",
+    "typedi": "^0.10.0",
+    "typeorm": "^0.2.32",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",

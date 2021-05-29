@@ -1,47 +1,17 @@
-import mongoose, { Schema } from "mongoose";
-import { SubjectModel } from "./Subject";
+import { Entity, BaseEntity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { BaseModel } from './BaseModel';
 
-export interface UserModel extends mongoose.Document {
-  studentId: string;
-    user_pw: string;
-    admin : boolean;
-    semester : string; // 학기
-    major: string; // 전공
-    currentSubjects : [SubjectModel];
-    completeSubjects: [SubjectModel];
-    uncompletedSubjects: [SubjectModel];
-    abeek : boolean;
-    westernBook : number;
-    easternBook: number;
-    literatureBook: number;
-    scienceBook: number;
-    volunteerTime: number;
-    toeic: number;
-    ibt: number;
-    teps: number;
-    opic: number;
-    toeicSpeaking: number;
+@Entity('users')
+export class User extends BaseModel{
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column()
+    firstName: string;
+
+    @Column()
+    lastName: string;
+
+    @Column()
+    age: number;
 }
-const UserSchema: Schema<UserModel> = new (Schema as any)({
-    studentId: {type : String},
-    user_pw : {type : String},
-    admin : {type : Boolean, default : false},
-    semester: {type : String},
-    major: {type : String},
-    currentSubjects : [{ type: mongoose.Schema.Types.ObjectId, ref: 'subject' }],
-    completeSubjects : [{ type: mongoose.Schema.Types.ObjectId, ref: 'subject' }],
-    uncompletedSubjects : [{ type: mongoose.Schema.Types.ObjectId, ref: 'subject' }],
-    abeek: {type : Boolean},
-    westernBook : {type : Number},
-    easternBook: {type : Number},
-    literatureBook: {type : Number},
-    scienceBook: {type : Number},
-    volunteerTime: {type : Number},
-    toeic: {type : Number},
-    ibt: {type : Number},
-    teps: {type : Number},
-    opic: {type : Number},
-    toeicSpeaking: {type : Number},
-},{ timestamps: true } );
-
-export default  mongoose.model('user', UserSchema);
