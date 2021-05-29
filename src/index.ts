@@ -1,16 +1,20 @@
-import createError from 'http-errors';
 import express from 'express';
-import * as mongoose from "./config/mongoose";
-import app from './config/express';
-import config from "./config/vars";
-import bodyParser  from 'body-parser';
+import config from './config';
+import Logger from './loaders/logger';
+const loaders = require('./loaders');
 
-mongoose.connect();
+async function startServer(){
+  const app = express();
+  console.log(config.port);
+  
+  await loaders.default({ expressApp: app });
 
-console.log("PROCESS.ENV.PORT : ", config.port);
+  app.listen(config.port, () => {
+    Logger.info(`🛡️  Server listening on port: ${config.port} 🛡️`);
+  }).on('error', err => {
+    Logger.error(err);
+    process.exit(1);
+  });
+}
 
-app.listen(config.port || 3000, async () => {
-  console.log('server on!')
-});
-
-module.exports = app;
+startServer();

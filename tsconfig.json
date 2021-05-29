@@ -8,6 +8,10 @@
       "noImplicitAny": false,
       "moduleResolution": "node",
       "sourceMap": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "strictNullChecks" : false,
+      "allowJs": true,
       "outDir": "dist",
       "baseUrl": ".",
       "paths": {
