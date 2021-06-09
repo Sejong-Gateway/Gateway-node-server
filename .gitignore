@@ -4,3 +4,4 @@ yarn.lock
 .DS_Store
 /public
 dist
+ormconfig.json
