@@ -9,19 +9,29 @@ export default (app: Router) => {
 
     route.get('/', async(req: Request, res: Response)=>{
         const userServiceInstance = Container.get(UserService);
-        const list = await userServiceInstance.list();
+        const list = await userServiceInstance.list(
+            ['currentSubjects', 'completeSubjects', 'remainSubjects', 'categories'
+            ]
+        );
 
         return res.json({
             users: list
         })
     });
-    
-    route.post('/', async(req: Request, res: Response)=>{
-        const userServiceInstance = Container.get(UserService);
-        const newUser = await userServiceInstance.create(req.body);
 
-        return res.json({
-            user: newUser
-        })
+    route.delete('/:uuid', async(req: Request, res: Response) => {
+        const userServiceInstance = Container.get(UserService);
+        const deleteResult = await userServiceInstance.hardDelete(req.params.uuid);
+
+        return res.json(deleteResult);
     });
+    
+    // route.post('/', async(req: Request, res: Response)=>{
+    //     const userServiceInstance = Container.get(UserService);
+    //     const newUser = await userServiceInstance.create(req.body);
+    //
+    //     return res.json({
+    //         user: newUser
+    //     })
+    // });
 }
