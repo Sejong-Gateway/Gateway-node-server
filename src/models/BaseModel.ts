@@ -4,7 +4,7 @@ import {
     PrimaryColumn,
     UpdateDateColumn,
     ValueTransformer,
-    Column
+    Column, PrimaryGeneratedColumn
 } from 'typeorm';
 
 import { IsInt, IsDate } from 'class-validator';
@@ -15,10 +15,8 @@ const bigIntTransformer: ValueTransformer = {
 };
   
 export abstract class BaseModel {
-    @IsInt()
-    @Generated('increment')
-    @PrimaryColumn({ type: 'bigint', transformer: [bigIntTransformer] })
-    id!: number;
+    @PrimaryGeneratedColumn('uuid')
+    uuid!: number;
 
     @IsDate()
     @CreateDateColumn()
