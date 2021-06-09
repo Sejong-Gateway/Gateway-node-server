@@ -1,17 +1,43 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, Column, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
 import { BaseModel } from './BaseModel';
+import { Category } from './Category';
+import { Collage } from './College';
+import { Department } from './Department';
+import { Subject } from './Subject';
 
 @Entity('users')
 export class User extends BaseModel{
-    @PrimaryGeneratedColumn()
-    id: number;
+    @Column()
+    studentId: string;
 
     @Column()
-    firstName: string;
+    password: string;
 
     @Column()
-    lastName: string;
+    salt: string;
 
     @Column()
-    age: number;
+    isAbeek: boolean;
+
+    @ManyToOne((_) => Collage, (collage) => collage.uuid)
+    collage: Collage;
+
+    @ManyToOne((_) => Department, (department) => department.uuid)
+    department: Department;
+
+    @ManyToMany((_) => Subject)
+    @JoinTable()
+    currentSubjects: Subject[];
+
+    @ManyToMany((_) => Subject)
+    @JoinTable()
+    completeSubjects: Subject[];
+    
+    @ManyToMany((_) => Subject)
+    @JoinTable()
+    remainSubjects: Subject[];
+
+    @ManyToMany((_) => Category)
+    @JoinTable()
+    categories: Category[];
 }
